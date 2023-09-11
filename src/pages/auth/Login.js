@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { loginUser } from "../managers/authManager.js"
+import { loginUser } from "../../components/managers/authManager.js"
+import { useQuickBids } from "../../context/QuickBidsContext.js"
 
-export const Login = ({ setToken, setAdmin }) => {
+const Login = () => {
+
+  const { setToken, setIsAdmin, setIsPrimary } = useQuickBids()
+
   const username = useRef()
   const password = useRef()
   const navigate = useNavigate()
@@ -19,7 +23,8 @@ export const Login = ({ setToken, setAdmin }) => {
     loginUser(user).then(res => {
       if ("valid" in res && res.valid) {
         setToken(res.token)
-        setAdmin(res.staff)
+        setIsAdmin(res.staff)
+        setIsPrimary(res.primary)
         navigate("/")
       }
       else {
@@ -31,8 +36,8 @@ export const Login = ({ setToken, setAdmin }) => {
   // Autofill Username/Password by default streamline devolopment process 
   useEffect(
     () => {
-      username.current.value = "megducharme"
-      password.current.value = "ducharme"
+      username.current.value = "ryanphilip"
+      password.current.value = "tanay"
     },
     []
   )
@@ -62,7 +67,7 @@ export const Login = ({ setToken, setAdmin }) => {
             <button className="button is-link" type="submit" >Submit</button>
           </div>
           <div className="control">
-            <Link to="/register" className="button is-link is-light">Cancel</Link>
+            <Link to="/register" className="button is-link is-light">Register</Link>
           </div>
         </div>
         {
@@ -72,3 +77,5 @@ export const Login = ({ setToken, setAdmin }) => {
     </section>
   )
 }
+
+export default Login

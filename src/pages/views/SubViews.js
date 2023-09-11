@@ -1,8 +1,12 @@
+import React from "react"
 
 
-export const SubViews = () => {
+const SubViews = () => {
     return (
         <>
+        Sub Home
         </>
     )
 }
+
+export default SubViews
