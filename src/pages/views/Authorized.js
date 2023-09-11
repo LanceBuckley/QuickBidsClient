@@ -1,7 +1,8 @@
+import React from "react"
 import { Navigate, Outlet } from "react-router-dom"
-import { useQuickBids } from "../QuickBidsContext"
+import { useQuickBids } from "../../context/QuickBidsContext"
 
-export const Authorized = () => {
+const Authorized = () => {
 
 const { token } = useQuickBids
 
@@ -10,3 +11,5 @@ const { token } = useQuickBids
   }
   return <Navigate to='/login' replace />
 }
+
+export default Authorized

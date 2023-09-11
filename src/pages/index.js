@@ -1,12 +1,14 @@
-import { createRoot } from "react-dom/client"
+import React from "react"
 import { BrowserRouter } from "react-router-dom"
-import { QuickBids } from "./QuickBids"
+import QuickBids from "./QuickBids"
 import "./index.css"
 
-const container = document.getElementById("root")
-const root = createRoot(container)
-root.render(
-    <BrowserRouter>
-        <QuickBids />
-    </BrowserRouter>
-)
+const IndexPage = () => {
+    return (
+        <BrowserRouter>
+            <QuickBids />
+        </BrowserRouter>
+    )
+}
+
+export default IndexPage

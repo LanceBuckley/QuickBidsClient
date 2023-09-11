@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { loginUser } from "../../managers/AuthManager"
+import { loginUser } from "../managers/authManager.js"
 
 export const Login = ({ setToken, setAdmin }) => {
   const username = useRef()
@@ -44,16 +44,16 @@ export const Login = ({ setToken, setAdmin }) => {
         <p className="subtitle">Please sign in</p>
 
         <div className="field">
-          <label className="label">Username</label>
+          <label className="label" htmlFor="username">Username</label>
           <div className="control">
-            <input className="input" type="text" ref={username} />
+            <input className="input" type="text" ref={username} id="username" />
           </div>
         </div>
 
         <div className="field">
-          <label className="label">Password</label>
+          <label className="label" htmlFor="password">Password</label>
           <div className="control">
-            <input className="input" type="password" ref={password} />
+            <input className="input" type="password" ref={password} id="password" />
           </div>
         </div>
 

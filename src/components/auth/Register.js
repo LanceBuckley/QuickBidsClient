@@ -1,7 +1,7 @@
-import { useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import { registerUser } from "../../managers/AuthManager"
+import { registerUser } from "../managers/authManager.js"
 
 export const Register = () => {
   const firstName = useRef()
@@ -45,45 +45,45 @@ export const Register = () => {
         <h1 className="title">QuickBids</h1>
         <p className="subtitle">Create an account</p>
         <div className="field">
-          <label className="label">First Name</label>
+          <label className="label" htmlFor="firstName">First Name</label>
           <div className="control">
-            <input className="input" type="text" ref={firstName} />
+            <input className="input" type="text" ref={firstName} id="firstName" />
           </div>
         </div>
 
         <div className="field">
-          <label className="label">Last Name</label>
+          <label className="label" htmlFor="lastName">Last Name</label>
           <div className="control">
-            <input className="input" type="text" ref={lastName} />
+            <input className="input" type="text" ref={lastName} id="lastName" />
           </div>
         </div>
 
         <div className="field">
-          <label className="label">Username</label>
+          <label className="label" htmlFor="username">Username</label>
           <div className="control">
-            <input className="input" type="text" ref={username} />
+            <input className="input" type="text" ref={username} id="username" />
           </div>
         </div>
 
         <div className="field">
-          <label className="label">Email</label>
+          <label className="label" htmlFor="email">Email</label>
           <div className="control">
-            <input className="input" type="email" ref={email} />
+            <input className="input" type="email" ref={email} id="email" />
           </div>
         </div>
 
         <div className="field">
-          <label className="label">Password</label>
+          <label className="label" htmlFor="password">Password</label>
           <div className="field-body">
             <div className="field">
               <p className="control is-expanded">
-                <input className="input" type="password" placeholder="Password" ref={password} />
+                <input className="input" type="password" placeholder="Password" ref={password} id="password" />
               </p>
             </div>
 
             <div className="field">
               <p className="control is-expanded">
-                <input className="input" type="password" placeholder="Verify Password" ref={verifyPassword} />
+                <input className="input" type="password" placeholder="Verify Password" ref={verifyPassword} id="verifyPassword" />
               </p>
             </div>
           </div>
