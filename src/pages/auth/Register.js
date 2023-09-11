@@ -1,53 +1,10 @@
-import React, { useRef, useState } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
-import { registerUser } from "../../components/managers/authManager.js"
-import { useQuickBids } from "../../context/QuickBidsContext.js"
+import { useRegister } from "../../context/RegisterContext.js"
 
 const Register = () => {
 
-  const { setToken, setIsAdmin, setIsPrimary } = useQuickBids()
-
-  const firstName = useRef()
-  const lastName = useRef()
-  const email = useRef()
-  const username = useRef()
-  const company_name = useRef()
-  const phone_number = useRef()
-  const primary_contractor = useRef()
-  const password = useRef()
-  const verifyPassword = useRef()
-  const [showPasswordDialog, setShowDialog] = useState(false)
-  const navigate = useNavigate()
-
-  const handleRegister = (e) => {
-    e.preventDefault()
-
-    if (password.current.value === verifyPassword.current.value) {
-      const newUser = {
-        username: username.current.value,
-        first_name: firstName.current.value,
-        last_name: lastName.current.value,
-        company_name: company_name.current.value,
-        phone_number: phone_number.current.value,
-        primary_contractor: primary_contractor.current.value,
-        email: email.current.value,
-        password: password.current.value,
-      }
-
-      registerUser(newUser)
-        .then(res => {
-          if ("valid" in res && res.valid) {
-            setToken(res.token)
-            setIsAdmin(res.staff)
-            setIsPrimary(res.primary)
-            navigate("/")
-          }
-        })
-    } else {
-      setShowDialog(true)
-    }
-  }
+  const { username, firstName, lastName, companyName, phoneNumber, primaryContractor, email, password, showPasswordDialog, handleRegister, verifyPassword } = useRegister()
 
   return (
     <section className="columns is-centered">
@@ -76,23 +33,23 @@ const Register = () => {
         </div>
 
         <div className="field">
-          <label className="label" htmlFor="company_name">Company Name</label>
+          <label className="label" htmlFor="companyName">Company Name</label>
           <div className="control">
-            <input className="input" type="text" ref={company_name} id="company_name" />
+            <input className="input" type="text" ref={companyName} id="companyName" />
           </div>
         </div>
 
         <div className="field">
-          <label className="label" htmlFor="phone_number">Phone Number</label>
+          <label className="label" htmlFor="phoneNumber">Phone Number</label>
           <div className="control">
-            <input className="input" type="text" ref={phone_number} id="phone_number" />
+            <input className="input" type="text" ref={phoneNumber} id="phoneNumber" />
           </div>
         </div>
 
         <div className="field">
-          <label className="checkbox" htmlFor="primary_contractor">Primary Contractor</label>
+          <label className="checkbox" htmlFor="primaryContractor">Primary Contractor</label>
           <div className="control">
-            <input className="checkbox" type="checkbox" ref={primary_contractor} id="primary_contractor" />
+            <input className="checkbox" type="checkbox" ref={primaryContractor} id="primaryContractor" />
           </div>
         </div>
 

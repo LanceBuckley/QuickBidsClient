@@ -1,11 +1,10 @@
 import React from "react"
+import JobList from "../jobs/JobList"
 
 
 const PrimaryViews = () => {
     return (
-        <>
-        Primary Home
-        </>
+        <JobList />
     )
 }
 
