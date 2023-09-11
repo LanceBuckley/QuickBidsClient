@@ -1,13 +1,20 @@
 import React, { useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import { registerUser } from "../managers/authManager.js"
+import { registerUser } from "../../components/managers/authManager.js"
+import { useQuickBids } from "../../context/QuickBidsContext.js"
 
-export const Register = () => {
+const Register = () => {
+
+  const { setToken, setIsAdmin, setIsPrimary } = useQuickBids()
+
   const firstName = useRef()
   const lastName = useRef()
   const email = useRef()
   const username = useRef()
+  const company_name = useRef()
+  const phone_number = useRef()
+  const primary_contractor = useRef()
   const password = useRef()
   const verifyPassword = useRef()
   const [showPasswordDialog, setShowDialog] = useState(false)
@@ -21,6 +28,9 @@ export const Register = () => {
         username: username.current.value,
         first_name: firstName.current.value,
         last_name: lastName.current.value,
+        company_name: company_name.current.value,
+        phone_number: phone_number.current.value,
+        primary_contractor: primary_contractor.current.value,
         email: email.current.value,
         password: password.current.value,
       }
@@ -29,8 +39,8 @@ export const Register = () => {
         .then(res => {
           if ("valid" in res && res.valid) {
             setToken(res.token)
-            setAdmin(res.staff)
-            setPrimary(res.primary)
+            setIsAdmin(res.staff)
+            setIsPrimary(res.primary)
             navigate("/")
           }
         })
@@ -62,6 +72,27 @@ export const Register = () => {
           <label className="label" htmlFor="username">Username</label>
           <div className="control">
             <input className="input" type="text" ref={username} id="username" />
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label" htmlFor="company_name">Company Name</label>
+          <div className="control">
+            <input className="input" type="text" ref={company_name} id="company_name" />
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label" htmlFor="phone_number">Phone Number</label>
+          <div className="control">
+            <input className="input" type="text" ref={phone_number} id="phone_number" />
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="checkbox" htmlFor="primary_contractor">Primary Contractor</label>
+          <div className="control">
+            <input className="checkbox" type="checkbox" ref={primary_contractor} id="primary_contractor" />
           </div>
         </div>
 
@@ -109,3 +140,5 @@ export const Register = () => {
     </section>
   )
 }
+
+export default Register

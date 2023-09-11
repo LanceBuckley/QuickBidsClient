@@ -1,8 +1,12 @@
+import React from "react"
 
 
-export const PrimaryViews = () => {
+const PrimaryViews = () => {
     return (
         <>
+        Primary Home
         </>
     )
 }
+
+export default PrimaryViews
