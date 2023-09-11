@@ -1,47 +1,22 @@
-import React, { useEffect, useRef, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { loginUser } from "../../components/managers/authManager.js"
-import { useQuickBids } from "../../context/QuickBidsContext.js"
+import React, { useEffect } from "react"
+import { Link } from "react-router-dom"
+import { useLogin } from "../../context/LoginContext.js"
 
 const Login = () => {
 
-  const { setToken, setIsAdmin, setIsPrimary } = useQuickBids()
+  const { isUnsuccessful, handleLogin, username, password } = useLogin()
 
-  const username = useRef()
-  const password = useRef()
-  const navigate = useNavigate()
-  const [isUnsuccessful, setisUnsuccessful] = useState(false)
-
-  const handleLogin = (e) => {
-    e.preventDefault()
-
-    const user = {
-      username: username.current.value,
-      password: password.current.value
-    }
-
-    loginUser(user).then(res => {
-      if ("valid" in res && res.valid) {
-        setToken(res.token)
-        setIsAdmin(res.staff)
-        setIsPrimary(res.primary)
-        navigate("/")
-      }
-      else {
-        setisUnsuccessful(true)
-      }
-    })
-  }
   /*--------------------------------------------------------------------*/
-  // Autofill Username/Password by default streamline devolopment process 
-  useEffect(
-    () => {
-      username.current.value = "ryanphilip"
-      password.current.value = "tanay"
-    },
-    []
-  )
-  /*--------------------------------------------------------------------*/
+    // Autofill Username/Password by default streamline devolopment process 
+    useEffect(
+      () => {
+        username.current.value = "ryanphilip"
+        password.current.value = "tanay"
+      },
+      []
+    )
+    /*--------------------------------------------------------------------*/
+
   return (
     <section className="columns is-centered">
       <form className="column is-two-thirds" onSubmit={handleLogin}>

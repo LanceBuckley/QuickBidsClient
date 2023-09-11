@@ -4,21 +4,27 @@ import { QuickBidsProvider } from "../context/QuickBidsContext"
 import Login from "./auth/Login"
 import Register from "./auth/Register"
 import Authorized from "./views/Authorized"
+import { LoginProvider } from "../context/LoginContext"
+import { RegisterProvider } from "../context/RegisterContext"
 
 
 const QuickBids = () => {
   return (
     <QuickBidsProvider>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+      <LoginProvider>
+        <RegisterProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-        <Route path="*" element={
-          <Authorized>
+            <Route path="*" element={
+              <Authorized>
 
-          </Authorized>
-        } />
-      </Routes>
+              </Authorized>
+            } />
+          </Routes>
+        </RegisterProvider>
+      </LoginProvider>
     </QuickBidsProvider>
   )
 }
