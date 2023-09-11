@@ -3,8 +3,7 @@ import { getCurrentUser } from "../../managers/userManager"
 import { getMyJobs, getOpenJobs } from "../../managers/jobManager"
 
 const JobList = () => {
-    const [myJobs, setMyJobs] = useState([])
-    const [openJobs, setOpenJobs] = useState([])
+    const [Jobs, setJobs] = useState([])
     const [currentUser, setCurrentUser] = useState([{ id: 0 }])
 
     useEffect(() => {
@@ -15,22 +14,33 @@ const JobList = () => {
     useEffect(() => {
         if (currentUser[0].id !== 0 && currentUser[0].primary_contractor) {
             getMyJobs(currentUser[0].id)
-                .then((jobs) => setMyJobs(jobs))
+                .then((jobs) => setJobs(jobs))
         }
         else if (currentUser[0].id !== 0) {
             getOpenJobs()
-                .then((jobs) => setOpenJobs(jobs))
+                .then((jobs) => setJobs(jobs))
         }
     }, [currentUser])
 
 
     return (
         <>
-            <p>{myJobs.map((job) => (
+        {currentUser[0].primary_contractor ? <h1>My Jobs</h1> : <h1>Open Jobs</h1>}
+            <ul>{Jobs.map((job) => (
                 <li key={job.id}>
-                    {job.name}
+                    <p>{job.name}</p>
+                    <p>{job.address}</p>
+                    <p>{job.square_footage}</p>
+                    <ul>{job.fields.map((field) => (
+                        <li key = {field.id}>
+                            <p>{field.job_title}</p>
+                        </li>
+                    ))}</ul>
+                    <p>Bids Link</p>
+                    <p>Status: {job.open ? 'Open' : 'Closed'}</p>
+                    <p>If Closed Show Chosen Subcontractor</p>
                 </li>
-            ))}</p>
+            ))}</ul>
         </>
     )
 }

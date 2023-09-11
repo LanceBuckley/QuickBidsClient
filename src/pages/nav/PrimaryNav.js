@@ -3,7 +3,7 @@ import { useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "./NavBar.css"
 import { useQuickBids } from "../../context/QuickBidsContext"
-import { Logo } from "../../images/icon.png"
+import { Logo } from "../../images/Logo.png"
 
 const PrimaryNav = () => {
     const { token, setToken } = useQuickBids()

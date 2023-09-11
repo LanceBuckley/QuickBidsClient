@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from "react"
+import React, { createContext, useContext, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useQuickBids } from "./QuickBidsContext"
 import { registerUser } from "../managers/authManager"
