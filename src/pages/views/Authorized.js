@@ -2,7 +2,7 @@ import React from "react"
 import { Navigate } from "react-router-dom"
 import { useQuickBids } from "../../context/QuickBidsContext"
 import ApplicationViews from "./ApplicationViews"
-import Navbar from "../nav/NavBar.js"
+import { Navbar } from "../../components/nav/NavBar.js"
 
 const Authorized = () => {
 

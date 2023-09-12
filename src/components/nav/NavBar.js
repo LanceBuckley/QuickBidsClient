@@ -1,9 +1,9 @@
 import React from "react"
 import { useQuickBids } from "../../context/QuickBidsContext"
-import PrimaryNav from "./PrimaryNav"
-import SubNav from "./SubNav"
+import { PrimaryNav } from "./PrimaryNav"
+import { SubNav } from "./SubNav"
 
-const Navbar = () => {
+export const Navbar = () => {
 
     const { isPrimary } = useQuickBids()
 
@@ -13,5 +13,3 @@ const Navbar = () => {
 
     return <SubNav />
 }
-
-export default Navbar

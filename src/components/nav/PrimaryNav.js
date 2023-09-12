@@ -5,7 +5,7 @@ import "./NavBar.css"
 import { useQuickBids } from "../../context/QuickBidsContext"
 import { Logo } from "../../images/Logo.png"
 
-const SubNav = () => {
+export const PrimaryNav = () => {
     const { token, setToken } = useQuickBids()
     const navigate = useNavigate()
     const navbar = useRef()
@@ -48,6 +48,8 @@ const SubNav = () => {
                 <div className="navbar-start">
                     {token ? (
                         <>
+                        <Link to="jobs/NewJob">New Job</Link>
+                        <Link to="subs/SubsList">Sub Contractors</Link>
                         </>
                     ) : (
                         ""
@@ -85,5 +87,3 @@ const SubNav = () => {
         </nav>
     )
 }
-
-export default SubNav

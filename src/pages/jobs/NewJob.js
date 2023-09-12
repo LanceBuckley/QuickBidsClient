@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getFields } from "../../managers/fieldManager"
-import { useQuickBids } from "../../context/QuickBidsContext"
 import { createJob } from "../../managers/jobManager"
 
 const NewJob = () => {
@@ -19,8 +18,6 @@ const NewJob = () => {
     const [formError, setFormError] = useState(false)
 
     const navigate = useNavigate()
-
-    const { token } = useQuickBids()
 
     useEffect(() => {
         getFields()

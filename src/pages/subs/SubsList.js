@@ -15,7 +15,7 @@ const SubsList = () => {
         <h1>Sub Contractors</h1>
             <ul>{Subs.map((sub) => (
                 <li key={sub.id}>
-                    <Link to={`/${sub.id}`}>{sub.company_name}</Link>
+                    <Link to={`/subs/${sub.id}`}>{sub.company_name}</Link>
                 </li>
             ))}</ul>
         </>
