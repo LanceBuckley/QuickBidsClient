@@ -48,6 +48,7 @@ const PrimaryNav = () => {
                 <div className="navbar-start">
                     {token ? (
                         <>
+                        <Link to="/jobForm">New Job</Link>
                         </>
                     ) : (
                         ""
