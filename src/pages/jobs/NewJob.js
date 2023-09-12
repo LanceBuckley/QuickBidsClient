@@ -162,6 +162,12 @@ const NewJob = () => {
             >
                 Submit
             </button>
+            <button
+                onClick={(e) => navigate("/")}
+                className="btn btn-primary"
+            >
+                Cancel
+            </button>
 
             {formError && <div className="alert alert-danger">Please fill in all of the required fields.</div>}
         </form>

@@ -31,6 +31,7 @@ const JobList = () => {
                     <p>{job.name}</p>
                     <p>{job.address}</p>
                     <p>SqFt: {job.square_footage}</p>
+                    <p>Blueprint goes here</p>
                     <p>Needed:</p>
                     <ul>{job.fields.map((field) => (
                         <li key = {field.id}>
