@@ -30,7 +30,8 @@ const JobList = () => {
                 <li key={job.id}>
                     <p>{job.name}</p>
                     <p>{job.address}</p>
-                    <p>{job.square_footage}</p>
+                    <p>SqFt: {job.square_footage}</p>
+                    <p>Needed:</p>
                     <ul>{job.fields.map((field) => (
                         <li key = {field.id}>
                             <p>{field.job_title}</p>
@@ -39,6 +40,7 @@ const JobList = () => {
                     <p>Bids Link</p>
                     <p>Status: {job.open ? 'Open' : 'Closed'}</p>
                     <p>If Closed Show Chosen Subcontractor</p>
+                    <p>-----------------------------------</p>
                 </li>
             ))}</ul>
         </>
