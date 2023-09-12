@@ -49,6 +49,7 @@ const PrimaryNav = () => {
                     {token ? (
                         <>
                         <Link to="/jobForm">New Job</Link>
+                        <Link to="/subList">Sub Contractors</Link>
                         </>
                     ) : (
                         ""

@@ -2,6 +2,8 @@ import React from "react"
 import { Route, Routes } from "react-router-dom"
 import JobList from "../jobs/JobList"
 import NewJob from "../jobs/NewJob"
+import SubsList from "../subs/SubsList"
+import SubDetails from "../subs/SubDetails"
 
 
 const PrimaryViews = () => {
@@ -10,6 +12,8 @@ const PrimaryViews = () => {
             <Routes>
                 <Route index element={<JobList />} />
                 <Route path="/jobForm" element={<NewJob />} />
+                <Route path="/subList" element={<SubsList />} />
+                <Route path="/:userId" element={<SubDetails />} />
             </Routes>
         </>
     )
