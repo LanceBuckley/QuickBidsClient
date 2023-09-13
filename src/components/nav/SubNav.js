@@ -1,9 +1,10 @@
 import React from "react"
 import { useRef } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import "./NavBar.css"
 import { useQuickBids } from "../../context/QuickBidsContext"
 import { Logo } from "../../images/Logo.png"
+import { Link } from "gatsby"
 
 export const SubNav = () => {
     const { token, setToken } = useQuickBids()

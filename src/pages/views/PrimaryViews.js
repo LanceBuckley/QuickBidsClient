@@ -4,6 +4,7 @@ import JobList from "../jobs/JobList"
 import NewJob from "../jobs/NewJob"
 import SubsList from "../subs/SubsList"
 import SubDetails from "../subs/[id]"
+import BidsList from "../bids/[id]"
 
 
 const PrimaryViews = () => {
@@ -14,6 +15,7 @@ const PrimaryViews = () => {
                 <Route path="jobs/NewJob" element={<NewJob />} />
                 <Route path="subs/SubsList" element={<SubsList />} />
                 <Route path="subs/:userId" element={<SubDetails />} />
+                <Route path="bids/:jobId" element={<BidsList />} />
             </Routes>
         </>
     )

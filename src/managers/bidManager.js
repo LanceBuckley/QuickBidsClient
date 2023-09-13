@@ -21,3 +21,15 @@ export const createBid = async (bidBody) => {
     })
     return await res.json()
 }
+
+export const getBidsForJob = async (id) => {
+    const res = await fetch(`http://localhost:8000/bids?job=${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        },
+    })
+    return await res.json()
+}

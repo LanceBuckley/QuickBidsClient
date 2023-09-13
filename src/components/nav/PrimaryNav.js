@@ -1,13 +1,12 @@
 import React from "react"
 import { useRef } from "react"
-import { Link, useNavigate } from "react-router-dom"
 import "./NavBar.css"
-import { useQuickBids } from "../../context/QuickBidsContext"
 import { Logo } from "../../images/Logo.png"
+import { useQuickBids } from "../../context/QuickBidsContext"
+import { Link } from "gatsby"
 
 export const PrimaryNav = () => {
     const { token, setToken } = useQuickBids()
-    const navigate = useNavigate()
     const navbar = useRef()
     const hamburger = useRef()
 
@@ -48,8 +47,8 @@ export const PrimaryNav = () => {
                 <div className="navbar-start">
                     {token ? (
                         <>
-                        <Link to="jobs/NewJob">New Job</Link>
-                        <Link to="subs/SubsList">Sub Contractors</Link>
+                            <Link to="/jobs/NewJob">New Job</Link>
+                            <Link to="/subs/SubsList">Sub Contractors</Link>
                         </>
                     ) : (
                         ""
@@ -60,16 +59,16 @@ export const PrimaryNav = () => {
                     <div className="navbar-item">
                         <div className="buttons">
                             {token ? (
-                                <button
-                                    className="button is-outlined"
-                                    onClick={() => {
-                                        setToken("")
-                                        localStorage.removeItem("primary_contractor")
-                                        navigate("/login")
-                                    }}
-                                >
-                                    Logout
-                                </button>
+                                <Link to="/login">
+                                    <button
+                                        className="button is-outlined"
+                                        onClick={() => {
+                                            setToken("")
+                                            localStorage.removeItem("primary_contractor")
+                                        }}
+                                    >Logout
+                                    </button>
+                                </Link>
                             ) : (
                                 <>
                                     <Link to="/register" className="button is-link">

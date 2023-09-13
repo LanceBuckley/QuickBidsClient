@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { getCurrentUser } from "../../managers/userManager"
 import { getMyJobs, getOpenJobs } from "../../managers/jobManager"
+import { Link } from "gatsby"
 
 const JobList = () => {
     const [jobs, setJobs] = useState([])
@@ -38,7 +39,7 @@ const JobList = () => {
                             <p>{field.job_title}</p>
                         </li>
                     ))}</ul>
-                    <p>Bids Link</p>
+                    <Link to={`/bids/${job.id}`}>Bids</Link>
                     <p>Status: {job.open ? 'Open' : 'Closed'}</p>
                     <p>If Closed Show Chosen Subcontractor</p>
                     <p>-----------------------------------</p>

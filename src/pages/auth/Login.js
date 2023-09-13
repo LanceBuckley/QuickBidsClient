@@ -10,7 +10,7 @@ const Login = () => {
     // Autofill Username/Password by default streamline devolopment process 
     useEffect(
       () => {
-        username.current.value = "ryanphilip"
+        username.current.value = "ryantanay"
         password.current.value = "tanay"
       },
       []
