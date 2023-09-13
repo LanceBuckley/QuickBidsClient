@@ -22,6 +22,33 @@ export const getOpenJobs = async (id) => {
     return await res.json()
 }
 
+export const getCompleteJobs = async () => {
+    const res = await fetch(`http://localhost:8000/jobs?complete=true`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        },
+    })
+    return await res.json()
+}
+
+export const getACompleteJob = async (id) => {
+    const res = await fetch(`http://localhost:8000/jobs/${id}?complete=true`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        },
+    })
+    if (res.status !== 404) {
+        return await res.json()
+    }
+    return res
+}
+
 export const createJob = async (jobBody) => {
     const res = await fetch(`http://localhost:8000/jobs`, {
         method: "POST",

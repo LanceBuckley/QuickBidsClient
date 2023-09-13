@@ -3,7 +3,7 @@ import { getCurrentUser } from "../../managers/userManager"
 import { getMyJobs, getOpenJobs } from "../../managers/jobManager"
 
 const JobList = () => {
-    const [Jobs, setJobs] = useState([])
+    const [jobs, setJobs] = useState([])
     const [currentUser, setCurrentUser] = useState([{ id: 0 }])
 
     useEffect(() => {
@@ -26,12 +26,12 @@ const JobList = () => {
     return (
         <>
         {currentUser[0].primary_contractor ? <h1>My Jobs</h1> : <h1>Open Jobs</h1>}
-            <ul>{Jobs.map((job) => (
+            <ul>{jobs.map((job) => (
                 <li key={job.id}>
                     <p>{job.name}</p>
                     <p>{job.address}</p>
                     <p>SqFt: {job.square_footage}</p>
-                    <p>Blueprint goes here</p>
+                    <p>{job.blueprint}</p>
                     <p>Needed:</p>
                     <ul>{job.fields.map((field) => (
                         <li key = {field.id}>
