@@ -9,3 +9,15 @@ export const getAcceptedSubBids = async (id) => {
     })
     return await res.json()
 }
+
+export const createBid = async (bidBody) => {
+    const res = await fetch(`http://localhost:8000/bids`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`
+        },
+        body: JSON.stringify(bidBody)
+    })
+    return await res.json()
+}

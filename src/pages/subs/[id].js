@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { getASubContractor, getCurrentUser } from "../../managers/userManager"
-import { getAcceptedSubBids } from "../../managers/bidManager"
+import { createBid, getAcceptedSubBids } from "../../managers/bidManager"
 import { getACompleteJob, getMyJobs } from "../../managers/jobManager"
 import "./RequestModal.css"
 
@@ -84,8 +84,21 @@ const SubDetails = (request, response) => {
         return <>No Completed Jobs</>
     }
 
-    const handleRequest = () => {
-        <></>
+    const handleRequest = async () => {
+        const newBidRequest = {
+            contractor: id,
+            job: bidRequest.job_id,
+            rate: bidRequest.rate,
+            is_request: true
+        }
+
+        await createBid(newBidRequest)
+        const copy = {...bidRequest}
+        copy.rate = 0
+        copy.job_id = 0
+        setBidRequest(copy)
+        setModalVisible(false)
+        window.alert("Request Sent")
     }
 
     const bidRequestModalJSX = () => {
