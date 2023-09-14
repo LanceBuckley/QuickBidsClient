@@ -7,7 +7,7 @@ export const Navbar = () => {
 
     const { isPrimary } = useQuickBids()
 
-    if (isPrimary === "true" || true) {
+    if (isPrimary === "true" || isPrimary === true) {
         return <QuickBidsProvider>
             <PrimaryNav />
         </QuickBidsProvider>
