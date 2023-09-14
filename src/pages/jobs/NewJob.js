@@ -40,9 +40,10 @@ const NewJob = () => {
     const handleSaveButtonClick = (event) => {
         if (!job.name || !job.address || !job.blueprint || job.square_footage === 0) {
             event.preventDefault()
-            setFormError(true);
-            return;
+            setFormError(true)
+            return
         }
+
         const jobBody = {
             address: job.address,
             name: job.name,
@@ -124,13 +125,19 @@ const NewJob = () => {
                             className="form-control"
                             accept="image/*"  // Specify accepted file types (e.g., images)
                             onChange={(evt) => {
-                                const selectedFile = evt.target.files[0];
+                                const selectedFile = evt.target.files[0]
                                 if (selectedFile) {
-                                    const copy = { ...job };
-                                    copy.blueprint = selectedFile;
-                                    update(copy);
+                                    const reader = new FileReader()
+                                    reader.onload = function (e) {
+                                        const imageDataUrl = e.target.result
+                                        const copy = { ...job }
+                                        copy.blueprint = imageDataUrl
+                                        update(copy)
+                                    }
+                                    reader.readAsDataURL(selectedFile)
                                 }
-                            }}
+                            }
+                            }
                         />
                     </div>
                 </fieldset>
@@ -157,13 +164,13 @@ const NewJob = () => {
                     </div>
                 </fieldset>
 
-                <Link to="/jobs/JobList"><button
+                <Link to="/"><button
                     onClick={(clickEvent) => { handleSaveButtonClick(clickEvent) }}
                     className="btn btn-primary"
                 >Submit
                 </button></Link>
 
-                <Link to="/jobs/JobList"><button
+                <Link to="/"><button
                     className="btn btn-primary"
                 >
                     Cancel

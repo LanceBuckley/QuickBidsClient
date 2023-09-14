@@ -1,7 +1,7 @@
 import React from "react"
 import { useRef } from "react"
 import "./NavBar.css"
-import { Logo } from "../../images/Logo.png"
+import Logo from "../../images/Logo.png"
 import { useQuickBids } from "../../context/QuickBidsContext"
 import { Link } from "gatsby"
 
@@ -23,7 +23,7 @@ export const SubNav = () => {
         >
             <div className="navbar-brand">
                 <a className="navbar-item" href="/">
-                    <img src={Logo} height="3rem" alt="Quick Logo" />{" "}
+                    <img src={Logo} height="45rem" alt="Quick Logo" />{" "}
                     <h1 className="title is-4">QuickBids</h1>
                 </a>
 

@@ -48,7 +48,7 @@ const BidsList = (request, response) => {
                 <div key={bid.id}>
                     <h1>{bid.contractor.company_name}</h1>
                     <h2>{bid.rate}</h2>
-                    {isPrimary === "true" ? <Link to="/"><button onClick={() => {handleAccept(bid)}}>Accept</button></Link> : ""}
+                    {isPrimary === "true" && bid.request === false ? <Link to="/"><button onClick={() => {handleAccept(bid)}}>Accept</button></Link> : ""}
                 </div>
             )) : <h1>No Bids</h1>}
         </>

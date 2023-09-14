@@ -1,5 +1,5 @@
 import React from "react"
-import { QuickBidsProvider, useQuickBids } from "../../context/QuickBidsContext"
+import { useQuickBids } from "../../context/QuickBidsContext"
 import { PrimaryNav } from "./PrimaryNav"
 import { SubNav } from "./SubNav"
 

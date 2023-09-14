@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { getCurrentUser } from "../../managers/userManager"
-import { getMyJobs, getOpenJobs } from "../../managers/jobManager"
+import { getJob, getMyJobs, getOpenJobs, updateJob } from "../../managers/jobManager"
 import { Link } from "gatsby"
-import { createBid, getJobAcceptedBids } from "../../managers/bidManager"
+import { createBid, getJobAcceptedBids, getMyBidRequests, updateBid } from "../../managers/bidManager"
 import "./BidModal.css"
 
 const JobList = () => {
     const [jobs, setJobs] = useState([])
     const [currentUser, setCurrentUser] = useState([{ id: 0 }])
     const [bids, setBids] = useState([])
+    const [bidRequests, setBidRequests] = useState([])
     const [modalVisible, setModalVisible] = useState({
         visible: false,
         associatedJob: {}
@@ -42,11 +43,18 @@ const JobList = () => {
             );
 
             Promise.all(promises).then((bids) => {
-                const acceptedBids = bids.reduce((acc, copy) => acc.concat(copy), []);
+                const acceptedBids = bids.reduce((acc, copy) => acc.concat(copy), [])
                 setBids(acceptedBids);
-            });
+            })
         }
-    }, [jobs]);
+    }, [jobs])
+
+    useEffect(() => {
+        if (isPrimary !== "true") {
+            getMyBidRequests(currentUser[0].id)
+                .then((bidsForMe) => setBidRequests(bidsForMe))
+        }
+    }, [currentUser])
 
 
     const subOnJob = (job) => {
@@ -58,19 +66,23 @@ const JobList = () => {
     }
 
     const handleMakeBid = async () => {
+        if (newBid.rate <= 0) {
+            return window.alert("Not Valid Rate")
+        }
+
         const newBidRequest = {
-            contractor: modalVisible.job.contractor.id,
-            job: modalVisible.job.id,
+            contractor: modalVisible.associatedJob.contractor.id,
+            job: modalVisible.associatedJob.id,
             rate: newBid.rate,
             is_request: false
         }
 
         await createBid(newBidRequest)
-        const copy = {...newBid}
+        const copy = { ...newBid }
         copy.rate = 0
         copy.job_id = 0
         setNewBid(copy)
-        setModalVisible({visible: false, associatedJob: {}})
+        setModalVisible({ visible: false, associatedJob: {} })
         window.alert("Bid Sent")
     }
 
@@ -101,7 +113,7 @@ const JobList = () => {
                             <button
                                 className="modal-btn"
                                 onClick={() =>
-                                    setModalVisible({visible: false, associatedJob: {}})
+                                    setModalVisible({ visible: false, associatedJob: {} })
                                 }
                             >
                                 Cancel
@@ -113,16 +125,60 @@ const JobList = () => {
         )
     }
 
+    const listOfRequests = () => {
+        return (
+            <>
+                <div>You Have Requests</div>
+                {bidRequests.map((bid) => (
+                    <div key={bid.id}>
+                        <h1>{bid.contractor.company_name}</h1>
+                        <h2>{bid.rate}</h2>
+                        <button onClick={() => { handleAcceptRequest(bid) }}>Accept</button>
+                    </div>
+                ))}
+            </>
+        )
+    }
+
+    const handleAcceptRequest = async (bid) => {
+        const job = await getJob(bid.job.id)
+
+        const bidPutBody = {
+            id: bid.id,
+            job: bid.job.id,
+            contractor: bid.contractor.id,
+            rate: bid.rate,
+            accepted: true,
+            is_request: false
+        }
+
+        const jobCopy = { ...job }
+        const fieldsCopy = []
+        jobCopy.fields.map((field) => fieldsCopy.push(field.id))
+        jobCopy.open = false
+        jobCopy.contractor = jobCopy.contractor.id
+        jobCopy.fields = fieldsCopy
+        updateBid(bidPutBody)
+        updateJob(jobCopy)
+        getMyBidRequests(currentUser[0].id)
+                .then((bidsForMe) => setBidRequests(bidsForMe))
+    }
+
 
     return (
         <>
-            {currentUser[0].primary_contractor ? <h1>My Jobs</h1> : <h1>Open Jobs</h1>}
+            {currentUser[0].primary_contractor ? <h1>My Jobs</h1>
+                : <>
+                    {bidRequests ? listOfRequests() : <div>No New Requests</div>}
+                    <h1>Open Jobs</h1>
+                </>
+            }
             <ul>{jobs.map((job) => (
                 <li key={job.id}>
                     <p>{job.name}</p>
                     <p>{job.address}</p>
                     <p>SqFt: {job.square_footage}</p>
-                    <p>{job.blueprint}</p>
+                    <img src={job.blueprint} alt="Blueprint" />
                     <p>Needed:</p>
                     <ul>{job.fields.map((field) => (
                         <li key={field.id}>
@@ -131,7 +187,7 @@ const JobList = () => {
                     ))}</ul>
                     <p>Status: {job.open ? 'Open' : job.complete ? 'Complete' : 'Closed'}</p>
                     {!job.open ? <p>{subOnJob(job)}</p> : <Link to={`/bids/${job.id}`}>Bids</Link>}
-                    <p>{isPrimary === "false" ? <button onClick={() => setModalVisible({visible: true, associatedJob: job})}>Make Bid</button> : ""}</p>
+                    <p>{isPrimary === "false" ? <button onClick={() => setModalVisible({ visible: true, associatedJob: job })}>Make Bid</button> : ""}</p>
                     <p>-----------------------------------</p>
                 </li>
             ))}</ul>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { getASubContractor, getCurrentUser } from "../../managers/userManager"
 import { createBid, getAcceptedSubBids } from "../../managers/bidManager"
-import { getACompleteJob, getMyJobs } from "../../managers/jobManager"
+import { getACompleteJob, getMyOpenJobs } from "../../managers/jobManager"
 import "./RequestModal.css"
+import { QuickBidsProvider } from "../../context/QuickBidsContext"
+import { Navbar } from "../../components/nav/NavBar"
 
 const SubDetails = (request, response) => {
     const id = parseInt(request.params.id)
@@ -43,7 +45,7 @@ const SubDetails = (request, response) => {
     }, [bids])
 
     useEffect(() => {
-        getMyJobs(currentUser[0].id)
+        getMyOpenJobs(currentUser[0].id)
             .then((jobs) => setMyJobs(jobs))
     }, [currentUser])
 
@@ -93,7 +95,7 @@ const SubDetails = (request, response) => {
         }
 
         await createBid(newBidRequest)
-        const copy = {...bidRequest}
+        const copy = { ...bidRequest }
         copy.rate = 0
         copy.job_id = 0
         setBidRequest(copy)
@@ -160,6 +162,9 @@ const SubDetails = (request, response) => {
 
     return (
         <>
+            <QuickBidsProvider>
+                <Navbar />
+            </QuickBidsProvider>
             <h1>{sub.company_name}</h1>
             <p>{sub.first_name}</p>
             <p>{sub.last_name}</p>

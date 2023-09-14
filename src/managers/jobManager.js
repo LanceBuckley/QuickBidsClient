@@ -10,6 +10,18 @@ export const getMyJobs = async (id) => {
     return await res.json()
 }
 
+export const getMyOpenJobs = async (id) => {
+    const res = await fetch(`http://localhost:8000/jobs?contractor=${id}&open=true`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        },
+    })
+    return await res.json()
+}
+
 export const getJob = async (id) => {
     const res = await fetch(`http://localhost:8000/jobs/${id}`, {
         method: "GET",
