@@ -9,6 +9,7 @@ const BidsList = (request, response) => {
     const id = parseInt(request.params.id)
     const [bids, setBids] = useState([])
     const [job, setJob] = useState({})
+    const isPrimary = localStorage.getItem("is_primary")
 
     useEffect(() => {
         getBidsForJob(id)
@@ -47,7 +48,7 @@ const BidsList = (request, response) => {
                 <div key={bid.id}>
                     <h1>{bid.contractor.company_name}</h1>
                     <h2>{bid.rate}</h2>
-                    <Link to="/"><button onClick={() => {handleAccept(bid)}}>Accept</button></Link>
+                    {isPrimary === "true" ? <Link to="/"><button onClick={() => {handleAccept(bid)}}>Accept</button></Link> : ""}
                 </div>
             )) : <h1>No Bids</h1>}
         </>

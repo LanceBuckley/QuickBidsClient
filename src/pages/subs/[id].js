@@ -139,7 +139,7 @@ const SubDetails = (request, response) => {
                             ))}
                             <button
                                 className="modal-btn"
-                                onClick={() => handleRequest(bidRequest.rate)}
+                                onClick={() => handleRequest()}
                             >
                                 Ok
                             </button>

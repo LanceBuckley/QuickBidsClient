@@ -1,14 +1,12 @@
 import React from "react"
 import { useRef } from "react"
-import { useNavigate } from "react-router-dom"
 import "./NavBar.css"
-import { useQuickBids } from "../../context/QuickBidsContext"
 import { Logo } from "../../images/Logo.png"
+import { useQuickBids } from "../../context/QuickBidsContext"
 import { Link } from "gatsby"
 
 export const SubNav = () => {
     const { token, setToken } = useQuickBids()
-    const navigate = useNavigate()
     const navbar = useRef()
     const hamburger = useRef()
 
@@ -58,27 +56,16 @@ export const SubNav = () => {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            {token ? (
+                            <Link to="/">
                                 <button
                                     className="button is-outlined"
                                     onClick={() => {
                                         setToken("")
                                         localStorage.removeItem("primary_contractor")
-                                        navigate("/login")
                                     }}
-                                >
-                                    Logout
+                                >Logout
                                 </button>
-                            ) : (
-                                <>
-                                    <Link to="/register" className="button is-link">
-                                        Register
-                                    </Link>
-                                    <Link to="/login" className="button is-outlined">
-                                        Login
-                                    </Link>
-                                </>
-                            )}
+                            </Link>
                         </div>
                     </div>
                 </div>

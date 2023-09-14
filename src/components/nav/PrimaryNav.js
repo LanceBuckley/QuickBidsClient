@@ -58,27 +58,16 @@ export const PrimaryNav = () => {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            {token ? (
-                                <Link to="/login">
-                                    <button
-                                        className="button is-outlined"
-                                        onClick={() => {
-                                            setToken("")
-                                            localStorage.removeItem("primary_contractor")
-                                        }}
-                                    >Logout
-                                    </button>
-                                </Link>
-                            ) : (
-                                <>
-                                    <Link to="/register" className="button is-link">
-                                        Register
-                                    </Link>
-                                    <Link to="/login" className="button is-outlined">
-                                        Login
-                                    </Link>
-                                </>
-                            )}
+                            <Link to="/">
+                                <button
+                                    className="button is-outlined"
+                                    onClick={() => {
+                                        setToken("")
+                                        localStorage.removeItem("primary_contractor")
+                                    }}
+                                >Logout
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

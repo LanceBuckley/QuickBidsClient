@@ -2,12 +2,22 @@ import React, { useEffect, useState } from "react"
 import { getCurrentUser } from "../../managers/userManager"
 import { getMyJobs, getOpenJobs } from "../../managers/jobManager"
 import { Link } from "gatsby"
-import { getJobAcceptedBids } from "../../managers/bidManager"
+import { createBid, getJobAcceptedBids } from "../../managers/bidManager"
+import "./BidModal.css"
 
 const JobList = () => {
     const [jobs, setJobs] = useState([])
     const [currentUser, setCurrentUser] = useState([{ id: 0 }])
     const [bids, setBids] = useState([])
+    const [modalVisible, setModalVisible] = useState({
+        visible: false,
+        associatedJob: {}
+    })
+    const isPrimary = localStorage.getItem("is_primary")
+    const [newBid, setNewBid] = useState({
+        rate: 0,
+        job_id: 0
+    })
 
     useEffect(() => {
         getCurrentUser()
@@ -47,6 +57,62 @@ const JobList = () => {
         }
     }
 
+    const handleMakeBid = async () => {
+        const newBidRequest = {
+            contractor: modalVisible.job.contractor.id,
+            job: modalVisible.job.id,
+            rate: newBid.rate,
+            is_request: false
+        }
+
+        await createBid(newBidRequest)
+        const copy = {...newBid}
+        copy.rate = 0
+        copy.job_id = 0
+        setNewBid(copy)
+        setModalVisible({visible: false, associatedJob: {}})
+        window.alert("Bid Sent")
+    }
+
+    const makeBidModalJSX = () => {
+        return (
+            <>
+                <div className={`modal ${modalVisible.visible ? "is-active" : ""}`}>
+                    <div className="modal-container">
+                        <div className="modal-content">
+                            <h2 className="modal-title">Make Bid</h2>
+                            <input
+                                required
+                                type="number"
+                                value={newBid.rate}
+                                onChange={(e) =>
+                                    setNewBid({
+                                        ...newBid,
+                                        rate: parseInt(e.target.value),
+                                    })
+                                }
+                            />
+                            <button
+                                className="modal-btn"
+                                onClick={() => handleMakeBid()}
+                            >
+                                Ok
+                            </button>
+                            <button
+                                className="modal-btn"
+                                onClick={() =>
+                                    setModalVisible({visible: false, associatedJob: {}})
+                                }
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
+
 
     return (
         <>
@@ -63,12 +129,13 @@ const JobList = () => {
                             <p>{field.job_title}</p>
                         </li>
                     ))}</ul>
-                    <p>Status: {job.open ? 'Open' : 'Closed'}</p>
-                    <Link to={`/bids/${job.id}`}>Bids</Link>
-                    {!job.open ? <p>{subOnJob(job)}</p> : ""}
+                    <p>Status: {job.open ? 'Open' : job.complete ? 'Complete' : 'Closed'}</p>
+                    {!job.open ? <p>{subOnJob(job)}</p> : <Link to={`/bids/${job.id}`}>Bids</Link>}
+                    <p>{isPrimary === "false" ? <button onClick={() => setModalVisible({visible: true, associatedJob: job})}>Make Bid</button> : ""}</p>
                     <p>-----------------------------------</p>
                 </li>
             ))}</ul>
+            <div>{makeBidModalJSX()}</div>
         </>
     )
 }
