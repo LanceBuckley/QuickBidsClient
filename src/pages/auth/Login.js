@@ -10,8 +10,8 @@ const Login = () => {
     // Autofill Username/Password by default streamline devolopment process 
     useEffect(
       () => {
-        username.current.value = "ryantanay"
-        password.current.value = "tanay"
+        username.current.value = "bryannilson"
+        password.current.value = "nilson"
       },
       []
     )
@@ -42,7 +42,9 @@ const Login = () => {
             <button className="button is-link" type="submit" >Submit</button>
           </div>
           <div className="control">
-            <Link to="/register" className="button is-link is-light">Register</Link>
+            <Link to="/register" className="button is-link is-light">
+              <button>Register</button>
+              </Link>
           </div>
         </div>
         {

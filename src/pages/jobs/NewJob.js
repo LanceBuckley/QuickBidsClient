@@ -157,13 +157,13 @@ const NewJob = () => {
                     </div>
                 </fieldset>
 
-                <Link to="/"><button
+                <Link to="/jobs/JobList"><button
                     onClick={(clickEvent) => { handleSaveButtonClick(clickEvent) }}
                     className="btn btn-primary"
                 >Submit
                 </button></Link>
 
-                <Link to="/"><button
+                <Link to="/jobs/JobList"><button
                     className="btn btn-primary"
                 >
                     Cancel

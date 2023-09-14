@@ -40,9 +40,9 @@ const JobList = () => {
 
 
     const subOnJob = (job) => {
-        const actualSubs = bids.filter((sub) => sub !== undefined)
+        const actualSubs = bids.filter((sub) => sub.length !== 0)
         if (actualSubs.length !== 0) {
-            const subOnJob = actualSubs.find((sub) => sub !== undefined ? sub.job.id === job.id : "")
+            const subOnJob = actualSubs.find((sub) => sub.length !== 0 ? sub.job.id === job.id : "")
             return `${subOnJob.contractor.company_name}`
         }
     }

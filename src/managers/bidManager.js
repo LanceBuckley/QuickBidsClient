@@ -19,9 +19,7 @@ export const getJobAcceptedBids = async (id) => {
             Authorization: `Token ${localStorage.getItem("auth_token")}`,
         },
     })
-    if (res.status !== 204) {
         return await res.json()
-    }
 }
 
 export const createBid = async (bidBody) => {
@@ -56,5 +54,5 @@ export const getBidsForJob = async (id) => {
             Authorization: `Token ${localStorage.getItem("auth_token")}`,
         },
     })
-    return await res.json()
+        return await res.json()
 }
