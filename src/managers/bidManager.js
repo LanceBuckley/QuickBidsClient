@@ -19,10 +19,9 @@ export const getJobAcceptedBids = async (id) => {
             Authorization: `Token ${localStorage.getItem("auth_token")}`,
         },
     })
-    if (res.status !== 404) {
+    if (res.status !== 204) {
         return await res.json()
     }
-    return null
 }
 
 export const createBid = async (bidBody) => {
@@ -35,6 +34,17 @@ export const createBid = async (bidBody) => {
         body: JSON.stringify(bidBody)
     })
     return await res.json()
+}
+
+export const updateBid = (bidBody) => {
+    fetch(`http://localhost:8000/bids/${bidBody.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${localStorage.getItem("auth_token")}`
+        },
+        body: JSON.stringify(bidBody)
+    })
 }
 
 export const getBidsForJob = async (id) => {

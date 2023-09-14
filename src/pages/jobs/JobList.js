@@ -7,7 +7,7 @@ import { getJobAcceptedBids } from "../../managers/bidManager"
 const JobList = () => {
     const [jobs, setJobs] = useState([])
     const [currentUser, setCurrentUser] = useState([{ id: 0 }])
-    const [subs, setSubs] = useState([])
+    const [bids, setBids] = useState([])
 
     useEffect(() => {
         getCurrentUser()
@@ -27,19 +27,23 @@ const JobList = () => {
 
     useEffect(() => {
         if (jobs.length !== 0) {
-            const copy = [...subs]
-            jobs.map(async (job) => await getJobAcceptedBids(job.id).then((sub) => copy.push(sub)))
-            setSubs(copy)
-        }
-    }, [jobs])
+            const promises = jobs.map((job) =>
+                getJobAcceptedBids(job.id)
+            );
 
-    const SubOnJob = (job) => {
-        if (subs.length !== 0) {
-            const actualSubs = subs.filter((sub) => sub !== null)
-            if (actualSubs.length !== 0) {
-                const subOnJob = actualSubs.find((sub) => sub !== null ? sub[0].job.id === job.id : "")
-                return `${subOnJob[0].contractor.company_name}`
-            }
+            Promise.all(promises).then((bids) => {
+                const acceptedBids = bids.reduce((acc, copy) => acc.concat(copy), []);
+                setBids(acceptedBids);
+            });
+        }
+    }, [jobs]);
+
+
+    const subOnJob = (job) => {
+        const actualSubs = bids.filter((sub) => sub !== undefined)
+        if (actualSubs.length !== 0) {
+            const subOnJob = actualSubs.find((sub) => sub !== undefined ? sub.job.id === job.id : "")
+            return `${subOnJob.contractor.company_name}`
         }
     }
 
@@ -59,9 +63,9 @@ const JobList = () => {
                             <p>{field.job_title}</p>
                         </li>
                     ))}</ul>
-                    <Link to={`/bids/${job.id}`}>Bids</Link>
                     <p>Status: {job.open ? 'Open' : 'Closed'}</p>
-                    {!job.open ? <p>{SubOnJob(job)}</p> : ""}
+                    <Link to={`/bids/${job.id}`}>Bids</Link>
+                    {!job.open ? <p>{subOnJob(job)}</p> : ""}
                     <p>-----------------------------------</p>
                 </li>
             ))}</ul>
