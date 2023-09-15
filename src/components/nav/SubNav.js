@@ -1,13 +1,12 @@
 import React from "react"
 import { useRef } from "react"
-import { Link, useNavigate } from "react-router-dom"
 import "./NavBar.css"
+import Logo from "../../images/Logo.png"
 import { useQuickBids } from "../../context/QuickBidsContext"
-import { Logo } from "../../images/icon.png"
+import { Link } from "gatsby"
 
-const SubNav = () => {
+export const SubNav = () => {
     const { token, setToken } = useQuickBids()
-    const navigate = useNavigate()
     const navbar = useRef()
     const hamburger = useRef()
 
@@ -24,7 +23,7 @@ const SubNav = () => {
         >
             <div className="navbar-brand">
                 <a className="navbar-item" href="/">
-                    <img src={Logo} height="3rem" alt="Quick Logo" />{" "}
+                    <img src={Logo} height="45rem" alt="Quick Logo" />{" "}
                     <h1 className="title is-4">QuickBids</h1>
                 </a>
 
@@ -57,27 +56,16 @@ const SubNav = () => {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            {token ? (
+                            <Link to="/">
                                 <button
                                     className="button is-outlined"
                                     onClick={() => {
                                         setToken("")
                                         localStorage.removeItem("primary_contractor")
-                                        navigate("/login")
                                     }}
-                                >
-                                    Logout
+                                >Logout
                                 </button>
-                            ) : (
-                                <>
-                                    <Link to="/register" className="button is-link">
-                                        Register
-                                    </Link>
-                                    <Link to="/login" className="button is-outlined">
-                                        Login
-                                    </Link>
-                                </>
-                            )}
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -85,5 +73,3 @@ const SubNav = () => {
         </nav>
     )
 }
-
-export default SubNav

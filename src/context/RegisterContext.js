@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from "react"
+import React, { createContext, useContext, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useQuickBids } from "./QuickBidsContext"
 import { registerUser } from "../managers/authManager"
@@ -34,7 +34,7 @@ export const RegisterProvider = ({ children }) => {
                 last_name: lastName.current.value,
                 company_name: companyName.current.value,
                 phone_number: phoneNumber.current.value,
-                primary_contractor: primaryContractor.current.value,
+                primary_contractor: primaryContractor.current.checked,
                 email: email.current.value,
                 password: password.current.value,
             }
