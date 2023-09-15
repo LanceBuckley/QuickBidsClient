@@ -64,103 +64,110 @@ const NewJob = () => {
 
                 <fieldset>
                     <div className="form-group">
-                        <label htmlFor="jobHTML" className="jobName">Name:</label>
-                        <input
-                            required
-                            id="jobName"
-                            type="text"
-                            className="form-control"
-                            placeholder="The name of the company hiring you"
-                            value={job.name}
-                            onChange={(evt) => {
-                                const copy = { ...job }
-                                copy.name = evt.target.value
-                                update(copy)
-                            }}
-                        />
+                        <label className="jobName">
+                            Name:
+                            <input
+                                required
+                                id="jobName"
+                                type="text"
+                                className="form-control"
+                                placeholder="The name of the company hiring you"
+                                value={job.name}
+                                onChange={(evt) => {
+                                    const copy = { ...job }
+                                    copy.name = evt.target.value
+                                    update(copy)
+                                }}
+                            />
+                        </label>
                     </div>
                 </fieldset>
                 <fieldset>
                     <div className="form-group">
-                        <label htmlFor="jobHTML" className="jobAddress">Address:</label>
-                        <input
-                            required
-                            id="jobAddress"
-                            type="text"
-                            className="form-control"
-                            placeholder="The location of the job"
-                            value={job.address}
-                            onChange={(evt) => {
-                                const copy = { ...job }
-                                copy.address = evt.target.value
-                                update(copy)
-                            }}
-                        />
+                        <label className="jobAddress">
+                            Address:
+                            <input
+                                required
+                                type="text"
+                                name="jobAddress"
+                                className="form-control"
+                                placeholder="The location of the job"
+                                value={job.address}
+                                onChange={(evt) => {
+                                    const copy = { ...job }
+                                    copy.address = evt.target.value
+                                    update(copy)
+                                }}
+                            />
+                        </label>
                     </div>
                 </fieldset>
                 <fieldset>
                     <div className="form-group">
-                        <label htmlFor="jobHTML" className="jobSquareFt">Square Footage:</label>
-                        <input
-                            required
-                            id="jobSquareFt"
-                            type="text"
-                            className="form-control"
-                            placeholder="The size of the job area"
-                            value={job.square_footage}
-                            onChange={(evt) => {
-                                const copy = { ...job }
-                                copy.square_footage = evt.target.value
-                                update(copy)
-                            }}
-                        />
+                        <label className="jobSquareFt">
+                            Square Footage:
+                            <input
+                                required
+                                id="jobSquareFt"
+                                type="text"
+                                className="form-control"
+                                placeholder="The size of the job area"
+                                value={job.square_footage}
+                                onChange={(evt) => {
+                                    const copy = { ...job }
+                                    copy.square_footage = evt.target.value
+                                    update(copy)
+                                }}
+                            />
+                        </label>
                     </div>
                 </fieldset>
                 <fieldset>
                     <div className="form-group">
-                        <label htmlFor="jobHTML" className="jobBlueprint">Blueprint:</label>
-                        <input
-                            required
-                            type="file"  // Use type="file" for image uploads
-                            className="form-control"
-                            accept="image/*"  // Specify accepted file types (e.g., images)
-                            onChange={(evt) => {
-                                const selectedFile = evt.target.files[0]
-                                if (selectedFile) {
-                                    const reader = new FileReader()
-                                    reader.onload = function (e) {
-                                        const imageDataUrl = e.target.result
-                                        const copy = { ...job }
-                                        copy.blueprint = imageDataUrl
-                                        update(copy)
+                        <label className="jobBlueprint">
+                            Blueprint:
+                            <input
+                                required
+                                type="file"
+                                className="form-control"
+                                accept="image/*"
+                                onChange={(evt) => {
+                                    const selectedFile = evt.target.files[0]
+                                    if (selectedFile) {
+                                        const reader = new FileReader()
+                                        reader.onload = function (e) {
+                                            const imageDataUrl = e.target.result
+                                            const copy = { ...job }
+                                            copy.blueprint = imageDataUrl
+                                            update(copy)
+                                        }
+                                        reader.readAsDataURL(selectedFile)
                                     }
-                                    reader.readAsDataURL(selectedFile)
-                                }
-                            }
-                            }
-                        />
+                                }}
+                            />
+                        </label>
                     </div>
                 </fieldset>
                 <fieldset>
                     <div className="form-group">
-                        <label htmlFor="jobHTML" className="jobFields">Fields:</label>
-                        {
-                            fields.length > 0 &&
-                            fields.map((field) => {
-                                return <div key={`fieldCheck--${field.id}`}>
-                                    <label>
+                        <label className="jobFields">
+                            Fields:
+                            {
+                                fields.length > 0 &&
+                                fields.map((field) => {
+                                    return <div key={`fieldCheck--${field.id}`}>
                                         <input
-                                            id="jobFields"
+                                            id={`${field.id}`}
                                             type="checkbox"
                                             value={field.id}
                                             checked={chosenFields.includes(field.id)}
                                             onChange={(e) => addOrRemoveField(e)}
                                         />
                                         {field.job_title}
-                                    </label>
-                                </div>
-                            })
-                        }
+                                    </div>
+                                })
+                            }
+                        </label>
                     </div>
                 </fieldset>
 

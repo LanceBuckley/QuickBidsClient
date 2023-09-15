@@ -48,7 +48,8 @@ const SubDetails = (request, response) => {
 
     const setCompleteJobs = async () => {
         if (bids.length !== 0) {
-            const jobPromises = bids.map((bid) => getACompleteJob(bid.job.id))
+            const completeJobBids = bids.filter((bid) => bid.job.complete === true)
+            const jobPromises = completeJobBids.map((bid) => getACompleteJob(bid.job.id))
             const completeJobs = await Promise.all(jobPromises)
             setJobs(completeJobs)
         }

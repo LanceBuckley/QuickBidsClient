@@ -4,6 +4,7 @@ import { Navbar } from "../../components/nav/NavBar"
 import { QuickBidsProvider } from "../../context/QuickBidsContext"
 import { Link } from "gatsby"
 import { getJob, updateJob } from "../../managers/jobManager"
+import { getCurrentUser } from "../../managers/userManager"
 
 const BidsList = (request, response) => {
     const id = parseInt(request.params.id)
@@ -21,7 +22,7 @@ const BidsList = (request, response) => {
     }, [])
 
     useEffect(() => {
-        getCurrentUser  ()
+        getCurrentUser()
             .then((user) => setCurrentUser(user))
     }, [])
     
@@ -53,9 +54,9 @@ const BidsList = (request, response) => {
             </QuickBidsProvider>
             {bids.length !== 0 ? bids.map((bid) => (
                 <div key={bid.id}>
-                    <h1>{bid.contractor.company_name}</h1>
+                    <h1>{bid.sub_contractor.company_name}</h1>
                     <h2>{bid.rate}</h2>
-                    {isPrimary === "true" && bid.request === false ? <Link to="/"><button onClick={() => {handleAccept(bid)}}>Accept</button></Link> : ""}
+                    {isPrimary === "true" && bid.is_request === false ? <Link to="/"><button onClick={() => {handleAccept(bid)}}>Accept</button></Link> : ""}
                 </div>
             )) : <h1>No Bids</h1>}
         </>

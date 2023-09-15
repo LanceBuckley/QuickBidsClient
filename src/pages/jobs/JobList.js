@@ -19,6 +19,7 @@ const JobList = () => {
         rate: 0,
         job_id: 0
     })
+    const [render, setRender] = useState(false)
 
     useEffect(() => {
         getCurrentUser()
@@ -54,7 +55,7 @@ const JobList = () => {
             getMyBidRequests(currentUser[0].id)
                 .then((bidsForMe) => setBidRequests(bidsForMe))
         }
-    }, [currentUser])
+    }, [currentUser, render])
 
 
     const subOnJob = (job) => {
@@ -143,6 +144,11 @@ const JobList = () => {
     }
 
     const handleAcceptRequest = async (bid) => {
+        const rerender = await bidJobUpdate(bid)
+        setRender(rerender)
+    }
+
+    const bidJobUpdate = async(bid) => {
         const job = await getJob(bid.job.id)
 
         const bidPutBody = {
@@ -163,8 +169,7 @@ const JobList = () => {
         jobCopy.fields = fieldsCopy
         updateBid(bidPutBody)
         updateJob(jobCopy)
-        getMyBidRequests(currentUser[0].id)
-                .then((bidsForMe) => setBidRequests(bidsForMe))
+        return render ? false : true
     }
 
 
