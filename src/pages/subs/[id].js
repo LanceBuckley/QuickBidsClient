@@ -38,10 +38,7 @@ const SubDetails = (request, response) => {
     }, [sub, id])
 
     useEffect(() => {
-        if (bids.length !== 0) {
-            bids.map((bid) => getACompleteJob(bid.job.id)
-                .then((job) => job.id ? setCompleteJobs(job) : ""))
-        }
+        setCompleteJobs()
     }, [bids])
 
     useEffect(() => {
@@ -49,10 +46,12 @@ const SubDetails = (request, response) => {
             .then((jobs) => setMyJobs(jobs))
     }, [currentUser])
 
-    const setCompleteJobs = (job) => {
-        const copy = [...jobs]
-        copy.push(job)
-        setJobs(copy)
+    const setCompleteJobs = async () => {
+        if (bids.length !== 0) {
+            const jobPromises = bids.map((bid) => getACompleteJob(bid.job.id))
+            const completeJobs = await Promise.all(jobPromises)
+            setJobs(completeJobs)
+        }
     }
 
     const findBidRate = (job) => {
@@ -88,7 +87,8 @@ const SubDetails = (request, response) => {
 
     const handleRequest = async () => {
         const newBidRequest = {
-            contractor: id,
+            primary: currentUser[0].id,
+            sub: id,
             job: bidRequest.job_id,
             rate: bidRequest.rate,
             is_request: true

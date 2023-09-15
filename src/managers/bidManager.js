@@ -1,5 +1,5 @@
 export const getAcceptedSubBids = async (id) => {
-    const res = await fetch(`http://localhost:8000/bids?contractor=${id}&accepted=True`, {
+    const res = await fetch(`http://localhost:8000/bids?sub=${id}&accepted=True`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export const getBidsForJob = async (id) => {
 }
 
 export const getMyBidRequests = async (id) => {
-    const res = await fetch(`http://localhost:8000/bids?contractor=${id}&request=True`, {
+    const res = await fetch(`http://localhost:8000/bids?sub=${id}&request=True`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
