@@ -19,6 +19,7 @@ const JobList = () => {
         rate: 0,
         job_id: 0
     })
+    const [render, setRender] = useState(false)
 
     useEffect(() => {
         getCurrentUser()
@@ -54,14 +55,14 @@ const JobList = () => {
             getMyBidRequests(currentUser[0].id)
                 .then((bidsForMe) => setBidRequests(bidsForMe))
         }
-    }, [currentUser])
+    }, [currentUser, render])
 
 
     const subOnJob = (job) => {
         const actualSubs = bids.filter((sub) => sub.length !== 0)
         if (actualSubs.length !== 0) {
             const subOnJob = actualSubs.find((sub) => sub.length !== 0 ? sub.job.id === job.id : "")
-            return `${subOnJob.contractor.company_name}`
+            return `${subOnJob.sub_contractor.company_name}`
         }
     }
 
@@ -70,14 +71,15 @@ const JobList = () => {
             return window.alert("Not Valid Rate")
         }
 
-        const newBidRequest = {
-            contractor: modalVisible.associatedJob.contractor.id,
+        const myNewBid = {
+            primary: modalVisible.associatedJob.contractor.id,
+            sub: currentUser[0].id,
             job: modalVisible.associatedJob.id,
             rate: newBid.rate,
             is_request: false
         }
 
-        await createBid(newBidRequest)
+        await createBid(myNewBid)
         const copy = { ...newBid }
         copy.rate = 0
         copy.job_id = 0
@@ -131,8 +133,9 @@ const JobList = () => {
                 <div>You Have Requests</div>
                 {bidRequests.map((bid) => (
                     <div key={bid.id}>
-                        <h1>{bid.contractor.company_name}</h1>
-                        <h2>{bid.rate}</h2>
+                        <h1>{bid.primary_contractor.company_name}</h1>
+                        <h2>{bid.job.name}</h2>
+                        <h3>{bid.rate}</h3>
                         <button onClick={() => { handleAcceptRequest(bid) }}>Accept</button>
                     </div>
                 ))}
@@ -141,12 +144,18 @@ const JobList = () => {
     }
 
     const handleAcceptRequest = async (bid) => {
+        const rerender = await bidJobUpdate(bid)
+        setRender(rerender)
+    }
+
+    const bidJobUpdate = async(bid) => {
         const job = await getJob(bid.job.id)
 
         const bidPutBody = {
             id: bid.id,
             job: bid.job.id,
-            contractor: bid.contractor.id,
+            primary: bid.primary_contractor.id,
+            sub: currentUser[0].id,
             rate: bid.rate,
             accepted: true,
             is_request: false
@@ -160,8 +169,7 @@ const JobList = () => {
         jobCopy.fields = fieldsCopy
         updateBid(bidPutBody)
         updateJob(jobCopy)
-        getMyBidRequests(currentUser[0].id)
-                .then((bidsForMe) => setBidRequests(bidsForMe))
+        return render ? false : true
     }
 
 

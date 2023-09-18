@@ -18,12 +18,14 @@ const BidsList = (request, response) => {
         getJob(id)
             .then((job) => setJob(job))
     }, [])
+
     
     const handleAccept = (bid) => {
         const bidPutBody = {
             id: bid.id,
             job: bid.job.id,
-            contractor: bid.contractor.id,
+            primary: bid.primary_contractor.id,
+            sub: bid.sub_contractor.id,
             rate: bid.rate,
             accepted: true,
             is_request: false
@@ -46,9 +48,9 @@ const BidsList = (request, response) => {
             </QuickBidsProvider>
             {bids.length !== 0 ? bids.map((bid) => (
                 <div key={bid.id}>
-                    <h1>{bid.contractor.company_name}</h1>
+                    <h1>{bid.sub_contractor.company_name}</h1>
                     <h2>{bid.rate}</h2>
-                    {isPrimary === "true" && bid.request === false ? <Link to="/"><button onClick={() => {handleAccept(bid)}}>Accept</button></Link> : ""}
+                    {isPrimary === "true" && bid.is_request === false ? <Link to="/"><button onClick={() => {handleAccept(bid)}}>Accept</button></Link> : ""}
                 </div>
             )) : <h1>No Bids</h1>}
         </>
