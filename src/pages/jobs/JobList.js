@@ -130,38 +130,36 @@ const JobList = () => {
     const listOfRequests = () => {
         return (
             <>
-                <div className="job-title">You Have Requests</div>
-                <div className="job-container">
-                    <ul className="job-list">{bidRequests.map((bid) => (
-                        <div className="requests" key={`bid--${bid.id}`}>
-                            <div>
-                                <dl className="job-instance">
-                                    <dt className="job-name">From:</dt>
-                                    <dd className="job-detail">{bid.primary_contractor.company_name}</dd>
-                                </dl>
-                                <dl className="job-instance">
-                                    <dt className="job-name">Job:</dt>
-                                    <dd className="job-detail">{bid.job.name}</dd>
-                                </dl>
-                                <dl className="job-instance">
-                                    <dt className="job-name">Rate:</dt>
-                                    <dd className="job-detail">{bid.rate}</dd>
-                                </dl>
+                <section className="box">
+                    <div className="job-title">You Have Requests</div>
+                    <div className="job-container">
+                        <ul className="job-list">{bidRequests.map((bid) => (
+                            <div className="requests" key={`bid--${bid.id}`}>
+                                <div>
+                                    <dl className="job-instance">
+                                        <dt className="job-name">From:</dt>
+                                        <dd className="job-detail">{bid.primary_contractor.company_name}</dd>
+                                    </dl>
+                                    <dl className="job-instance">
+                                        <dt className="job-name">Job:</dt>
+                                        <dd className="job-detail">{bid.job.name}</dd>
+                                    </dl>
+                                    <dl className="job-instance">
+                                        <dt className="job-name">Rate:</dt>
+                                        <dd className="job-detail">{bid.rate}</dd>
+                                    </dl>
+                                </div>
+                                <button className="button is-success" onClick={() => { handleAcceptRequest(bid) }}>Accept</button>
                             </div>
-                            <button className="button is-success" onClick={() => { handleAcceptRequest(bid) }}>Accept</button>
-                        </div>
-                    ))}</ul>
-                </div>
+                        ))}</ul>
+                    </div>
+                </section>
             </>
         )
     }
 
     const handleAcceptRequest = async (bid) => {
-        const rerender = await bidJobUpdate(bid)
-        setRender(rerender)
-    }
-
-    const bidJobUpdate = async (bid) => {
+        const rerender = render ? false : true
         const job = await getJob(bid.job.id)
 
         const bidPutBody = {
@@ -182,7 +180,10 @@ const JobList = () => {
         jobCopy.fields = fieldsCopy
         updateBid(bidPutBody)
         updateJob(jobCopy)
-        return render ? false : true
+
+        setTimeout(() => {
+            setRender(rerender)
+        }, 35)
     }
 
 
@@ -190,35 +191,35 @@ const JobList = () => {
         <>
             {currentUser[0].primary_contractor ? <h1 className="job-title">My Jobs</h1>
                 : <>
-                    {bidRequests ? listOfRequests() : <div className="job-container">No New Requests</div>}
+                    {bidRequests.length > 0 ? listOfRequests() : ""}
                     <h1 className="job-title">Open Jobs</h1>
                 </>
             }
             <div className="job-container">
                 <ul className="job-list">{jobs.map((job) => (
-                        <li className="job-item" key={`job--${job.id}`}>
-                            <p className="job-title">{job.name}</p>
-                            <dl className="job-instance">
-                                <dt className="job-name">Address:</dt>
-                                <dd className="job-detail">{job.address}</dd>
-                            </dl>
-                            <dl className="job-instance">
-                                <dt className="job-name">Square Footage:</dt>
-                                <dd className="job-detail">{job.square_footage}</dd>
-                            </dl>
-                            <dl className="job-instance">
-                                <dt className="job-name">Needed:</dt>
-                                <ul>{job.fields.map((field) => (
-                                    <li key={field.id}>
-                                        <dd className="job-detail">{field.job_title}</dd>
-                                    </li>
-                                ))}</ul>
-                            </dl>
-                            <p className="job-name">Status: {job.open ? 'Open' : job.complete ? 'Complete' : 'Closed'}</p>
-                            {!job.open ? <p className="job-name">{subOnJob(job)}</p> : <Link to={`/bids/${job.id}`}>Bids</Link>}
-                            <p>{isPrimary === "false" ? <button className="button is-success" onClick={() => setModalVisible({ visible: true, associatedJob: job })}>Make Bid</button> : ""}</p>
-                            <img src={job.blueprint} alt="Blueprint" />
-                        </li>
+                    <li className="job-item" key={`job--${job.id}`}>
+                        <p className="job-title">{job.name}</p>
+                        <dl className="job-instance">
+                            <dt className="job-name">Address:</dt>
+                            <dd className="job-detail">{job.address}</dd>
+                        </dl>
+                        <dl className="job-instance">
+                            <dt className="job-name">Square Footage:</dt>
+                            <dd className="job-detail">{job.square_footage}</dd>
+                        </dl>
+                        <dl className="job-instance">
+                            <dt className="job-name">Needed:</dt>
+                            <ul>{job.fields.map((field) => (
+                                <li key={field.id}>
+                                    <dd className="job-detail">{field.job_title}</dd>
+                                </li>
+                            ))}</ul>
+                        </dl>
+                        <p className="job-name">Status: {job.open ? 'Open' : job.complete ? 'Complete' : 'Closed'}</p>
+                        {!job.open ? <p className="job-name">{subOnJob(job)}</p> : <Link to={`/bids/${job.id}`}>Bids</Link>}
+                        <p>{isPrimary === "false" ? <button className="button is-success" onClick={() => setModalVisible({ visible: true, associatedJob: job })}>Make Bid</button> : ""}</p>
+                        <img src={job.blueprint} alt="Blueprint" />
+                    </li>
                 ))}</ul>
             </div>
             <div>{makeBidModalJSX()}</div>
