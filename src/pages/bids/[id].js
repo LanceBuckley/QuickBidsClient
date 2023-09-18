@@ -30,7 +30,7 @@ const BidsList = (request, response) => {
         const bidPutBody = {
             id: bid.id,
             job: bid.job.id,
-            primary: currentUser.id,
+            primary: bid.primary_contractor.id,
             sub: bid.sub_contractor.id,
             rate: bid.rate,
             accepted: true,
