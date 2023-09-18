@@ -4,13 +4,11 @@ import { Navbar } from "../../components/nav/NavBar"
 import { QuickBidsProvider } from "../../context/QuickBidsContext"
 import { Link } from "gatsby"
 import { getJob, updateJob } from "../../managers/jobManager"
-import { getCurrentUser } from "../../managers/userManager"
 
 const BidsList = (request, response) => {
     const id = parseInt(request.params.id)
     const [bids, setBids] = useState([])
     const [job, setJob] = useState({})
-    const [currentUser, setCurrentUser] = useState([{ id: 0 }])
     const isPrimary = localStorage.getItem("is_primary")
 
     useEffect(() => {
@@ -21,10 +19,6 @@ const BidsList = (request, response) => {
             .then((job) => setJob(job))
     }, [])
 
-    useEffect(() => {
-        getCurrentUser()
-            .then((user) => setCurrentUser(user))
-    }, [])
     
     const handleAccept = (bid) => {
         const bidPutBody = {

@@ -42,8 +42,8 @@ const Login = () => {
             <button className="button is-link" type="submit" >Submit</button>
           </div>
           <div className="control">
-            <Link to="/register" className="button is-link is-light">
-              <button>Register</button>
+            <Link to="/register">
+              <button className="button is-link is-light">Register</button>
               </Link>
           </div>
         </div>

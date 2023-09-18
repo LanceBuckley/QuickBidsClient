@@ -46,10 +46,12 @@ export const PrimaryNav = () => {
             <div className="navbar-menu" ref={navbar}>
                 <div className="navbar-start">
                     {token ? (
-                        <>
-                            <Link to="/jobs/NewJob">New Job</Link>
-                            <Link to="/subs/SubsList">Sub Contractors</Link>
-                        </>
+                        <div className="navbar-item">
+                            <div className="buttons">
+                                <Link to="/jobs/NewJob"><button className="button is-link">New Job</button></Link>
+                                <Link to="/subs/SubsList"><button className="button is-link">Sub Contractors</button></Link>
+                            </div>
+                        </div>
                     ) : (
                         ""
                     )}
