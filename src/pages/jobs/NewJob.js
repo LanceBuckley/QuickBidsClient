@@ -59,7 +59,7 @@ const NewJob = () => {
             <QuickBidsProvider>
                 <Navbar />
             </QuickBidsProvider>
-            <form className="jobForm">
+            <form className="box jobForm">
                 <h2 className="jobFormHeader">New Job</h2>
 
                 <fieldset>
@@ -173,12 +173,12 @@ const NewJob = () => {
 
                 <Link to="/"><button
                     onClick={(clickEvent) => { handleSaveButtonClick(clickEvent) }}
-                    className="btn btn-primary"
+                    className="button is-primary"
                 >Submit
                 </button></Link>
 
                 <Link to="/"><button
-                    className="btn btn-primary"
+                    className="button is-danger"
                 >
                     Cancel
                 </button></Link>

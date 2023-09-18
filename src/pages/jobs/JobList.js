@@ -133,8 +133,8 @@ const JobList = () => {
                 <div className="job-title">You Have Requests</div>
                 <div className="job-container">
                     <ul className="job-list">{bidRequests.map((bid) => (
-                        <div className="requests">
-                            <div key={bid.id}>
+                        <div className="requests" key={`bid--${bid.id}`}>
+                            <div>
                                 <dl className="job-instance">
                                     <dt className="job-name">From:</dt>
                                     <dd className="job-detail">{bid.primary_contractor.company_name}</dd>
@@ -196,8 +196,7 @@ const JobList = () => {
             }
             <div className="job-container">
                 <ul className="job-list">{jobs.map((job) => (
-                    <div>
-                        <li className="job-item" key={job.id}>
+                        <li className="job-item" key={`job--${job.id}`}>
                             <p className="job-title">{job.name}</p>
                             <dl className="job-instance">
                                 <dt className="job-name">Address:</dt>
@@ -220,7 +219,6 @@ const JobList = () => {
                             <p>{isPrimary === "false" ? <button className="button is-success" onClick={() => setModalVisible({ visible: true, associatedJob: job })}>Make Bid</button> : ""}</p>
                             <img src={job.blueprint} alt="Blueprint" />
                         </li>
-                    </div>
                 ))}</ul>
             </div>
             <div>{makeBidModalJSX()}</div>
