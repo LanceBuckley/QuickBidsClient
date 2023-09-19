@@ -1,0 +1,21 @@
+.jobForm {
+    display: flex;
+    justify-content: center;
+}
+
+.jobFormHeader {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: large;
+}
+
+.form-group {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.jobName {
+    display: flex;
+    justify-content: space-evenly;
+}
