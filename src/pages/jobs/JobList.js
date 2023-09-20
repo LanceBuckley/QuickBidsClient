@@ -62,7 +62,10 @@ const JobList = () => {
         const actualSubs = bids.filter((sub) => sub.length !== 0)
         if (actualSubs.length !== 0) {
             const subOnJob = actualSubs.find((sub) => sub.length !== 0 ? sub.job.id === job.id : "")
-            return `${subOnJob.sub_contractor.company_name}`
+            if (subOnJob) {
+                return `${subOnJob.sub_contractor.company_name}`
+            }
+            return "No Contractor"
         }
     }
 
@@ -219,6 +222,7 @@ const JobList = () => {
                         {!job.open ? <p className="job-name">{subOnJob(job)}</p> : <Link to={`/bids/${job.id}`}>Bids</Link>}
                         <p>{isPrimary === "false" ? <button className="button is-success" onClick={() => setModalVisible({ visible: true, associatedJob: job })}>Make Bid</button> : ""}</p>
                         <img src={job.blueprint} alt="Blueprint" />
+                        <Link to={`/jobs/${job.id}`}><button className="button is-light">Edit</button></Link>
                     </li>
                 ))}</ul>
             </div>

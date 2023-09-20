@@ -17,6 +17,7 @@
 
 .job-list {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .job-item {
