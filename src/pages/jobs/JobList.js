@@ -222,7 +222,7 @@ const JobList = () => {
                         {!job.open ? <p className="job-name">{subOnJob(job)}</p> : <Link to={`/bids/${job.id}`}>Bids</Link>}
                         <p>{isPrimary === "false" ? <button className="button is-success" onClick={() => setModalVisible({ visible: true, associatedJob: job })}>Make Bid</button> : ""}</p>
                         <img src={job.blueprint} alt="Blueprint" />
-                        <Link to={`/jobs/${job.id}`}><button className="button is-light">Edit</button></Link>
+                        <Link to={`/jobs/${job.id}`}>{isPrimary === "true" ? <button className="button is-light">Edit</button> : ""}</Link>
                     </li>
                 ))}</ul>
             </div>
