@@ -20,8 +20,7 @@ const Login = () => {
 
   return (
     <main className="login-container">
-      <section className="columns is-centered">
-        <form className="box is-two-thirds" onSubmit={handleLogin}>
+        <form className="box" onSubmit={handleLogin}>
           <h1 className="title">QuickBids</h1>
           <p className="subtitle">Please sign in</p>
 
@@ -53,7 +52,6 @@ const Login = () => {
             isUnsuccessful ? <p className="help is-danger">Username or password not valid</p> : ''
           }
         </form>
-      </section>
     </main>
   )
 }

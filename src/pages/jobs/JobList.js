@@ -183,7 +183,7 @@ const JobList = () => {
 
         setTimeout(() => {
             setRender(rerender)
-        }, 35)
+        }, 50)
     }
 
 

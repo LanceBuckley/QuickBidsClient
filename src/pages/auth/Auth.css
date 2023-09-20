@@ -1,13 +1,15 @@
 .login-container {
-    margin-top: 7rem;
-    margin-left: 23rem;
-    margin-right: 23rem;
+    margin: 7rem auto 0;
+    border: crimson solid 1px;
     width: 1023px;
 }
 
 .register-container {
-    margin-top: 3rem;
-    margin-left: 23rem;
-    margin-right: 23rem;
+    margin: 3rem auto 0;
     width: 1023px;
+}
+
+.box {
+    width: 40rem;
+    margin: 0 auto;
 }
