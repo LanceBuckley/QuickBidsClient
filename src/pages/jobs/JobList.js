@@ -35,7 +35,7 @@ const JobList = () => {
             getOpenJobs()
                 .then((jobs) => setJobs(jobs))
         }
-    }, [currentUser])
+    }, [currentUser, render])
 
     useEffect(() => {
         if (jobs.length !== 0) {
@@ -48,7 +48,7 @@ const JobList = () => {
                 setBids(acceptedBids);
             })
         }
-    }, [jobs])
+    }, [jobs, render])
 
     useEffect(() => {
         if (isPrimary !== "true") {
@@ -218,11 +218,20 @@ const JobList = () => {
                                 </li>
                             ))}</ul>
                         </dl>
-                        <p className="job-name">Status: {job.open ? 'Open' : job.complete ? 'Complete' : 'Closed'}</p>
-                        {!job.open ? <p className="job-name">{subOnJob(job)}</p> : <Link to={`/bids/${job.id}`}>Bids</Link>}
-                        <p>{isPrimary === "false" ? <button className="button is-success" onClick={() => setModalVisible({ visible: true, associatedJob: job })}>Make Bid</button> : ""}</p>
-                        <img src={job.blueprint} alt="Blueprint" />
-                        <Link to={`/jobs/${job.id}`}>{isPrimary === "true" ? <button className="button is-light">Edit</button> : ""}</Link>
+                        <div className="job-container">
+                            <div>
+                                <p className="job-name">Status: {job.open ? 'Open' : job.complete ? 'Complete' : 'Closed'}</p>
+                                <div className="job-container">
+                                    {!job.open ? <p className="job-name">{subOnJob(job)}</p> : <Link to={`/bids/${job.id}`}>Bids</Link>}
+                                </div>
+                                <div className="job-container">
+                                    <p>{isPrimary === "false" ? <button className="button is-success" onClick={() => setModalVisible({ visible: true, associatedJob: job })}>Make Bid</button> : ""}</p>
+                                </div>
+                                <div className="job-container">
+                                    <Link to={`/jobs/${job.id}`}>{isPrimary === "true" ? <button>Edit</button> : ""}</Link>
+                                </div>
+                            </div>
+                        </div>
                     </li>
                 ))}</ul>
             </div>

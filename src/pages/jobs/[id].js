@@ -155,35 +155,6 @@ const EditJob = (request, response) => {
                     <fieldset>
                         <div className="form-group">
                             <label className="label">
-                                Blueprint
-                                <div className="control">
-                                    <input
-                                        required
-                                        name="jobBlueprint"
-                                        type="file"
-                                        className="form-control"
-                                        accept="image/*"
-                                        onChange={(evt) => {
-                                            const selectedFile = evt.target.files[0]
-                                            if (selectedFile) {
-                                                const reader = new FileReader()
-                                                reader.onload = function (e) {
-                                                    const imageDataUrl = e.target.result
-                                                    const copy = { ...job }
-                                                    copy.blueprint = imageDataUrl
-                                                    update(copy)
-                                                }
-                                                reader.readAsDataURL(selectedFile)
-                                            }
-                                        }}
-                                    />
-                                </div>
-                            </label>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div className="form-group">
-                            <label className="label">
                                 Fields:
                                 {
                                     fields.length > 0 &&

@@ -10,7 +10,6 @@ const NewJob = () => {
     const [job, update] = useState({
         name: "",
         address: "",
-        blueprint: "",
         square_footage: 0
     })
 
@@ -39,7 +38,7 @@ const NewJob = () => {
     }
 
     const handleSaveButtonClick = (event) => {
-        if (!job.name || !job.address || !job.blueprint || job.square_footage === 0) {
+        if (!job.name || !job.address || job.square_footage === 0) {
             event.preventDefault()
             setFormError(true)
             return
@@ -48,7 +47,6 @@ const NewJob = () => {
         const jobBody = {
             address: job.address,
             name: job.name,
-            blueprint: job.blueprint,
             square_footage: job.square_footage,
             fields: chosenFields
         }
@@ -123,35 +121,6 @@ const NewJob = () => {
                                         const copy = { ...job }
                                         copy.square_footage = evt.target.value
                                         update(copy)
-                                    }}
-                                />
-                                </div>
-                            </label>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div className="form-group">
-                            <label className="label">
-                                Blueprint
-                                <div className="control">
-                                <input
-                                    required
-                                    name="jobBlueprint"
-                                    type="file"
-                                    className="form-control"
-                                    accept="image/*"
-                                    onChange={(evt) => {
-                                        const selectedFile = evt.target.files[0]
-                                        if (selectedFile) {
-                                            const reader = new FileReader()
-                                            reader.onload = function (e) {
-                                                const imageDataUrl = e.target.result
-                                                const copy = { ...job }
-                                                copy.blueprint = imageDataUrl
-                                                update(copy)
-                                            }
-                                            reader.readAsDataURL(selectedFile)
-                                        }
                                     }}
                                 />
                                 </div>
