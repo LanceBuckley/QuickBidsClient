@@ -3,6 +3,7 @@ import { getSubContractors } from "../../managers/userManager"
 import { Link } from "gatsby"
 import { QuickBidsProvider } from "../../context/QuickBidsContext"
 import { Navbar } from "../../components/nav/NavBar"
+import "./SubsList.css"
 
 const SubsList = () => {
     const [Subs, setSubs] = useState([])
@@ -17,12 +18,14 @@ const SubsList = () => {
             <QuickBidsProvider>
                 <Navbar />
             </QuickBidsProvider>
-            <h1>Sub Contractors</h1>
-            <ul>{Subs.map((sub) => (
-                <li key={sub.id}>
-                    <Link to={`/subs/${sub.id}`}>{sub.company_name}</Link>
-                </li>
-            ))}</ul>
+                <h1 className="title">Sub Contractors</h1>
+                <div className="contractor-container">
+                    <ul className="contractor">{Subs.map((sub) => (
+                        <li className="label" key={sub.id}>
+                            <Link to={`/subs/${sub.id}`}>{sub.company_name}</Link>
+                        </li>
+                    ))}</ul>
+                </div>
         </>
     )
 }

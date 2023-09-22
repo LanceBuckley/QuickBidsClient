@@ -1,0 +1,36 @@
+.title {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: large;
+}
+
+.job-name {
+    display: flex;
+    justify-content: center;
+}
+
+.bid-container {
+    display: flex;
+    justify-content: center;
+}
+
+
+.bid-rate-container {
+    display: flex;
+}
+
+.bid-rate {
+    margin-left: .5rem;
+    margin-bottom: .5rem;
+    margin-right: 3rem;
+}
+
+.button {
+    margin-bottom: 2rem;
+}
+
+.label {
+    display: flex;
+    justify-content: center;
+}

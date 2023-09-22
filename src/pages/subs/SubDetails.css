@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.contractor-container {
+  display: flex;
+  justify-content: center;
+}
+
+.contractor {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}

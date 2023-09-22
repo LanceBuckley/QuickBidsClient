@@ -1,0 +1,103 @@
+
+.requests {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-right: 6rem;
+  margin-bottom: 2rem;
+  margin-left: 6rem;
+  padding: 2rem;
+}
+
+.job-container {
+  display: flex;
+  justify-content: center;
+}
+
+.job-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.job-item {
+  width: 18rem;
+  margin-top: 2rem;
+  margin-right: 6rem;
+  margin-bottom: 2rem;
+  margin-left: 6rem;
+  padding: 2rem;
+}
+
+.job-title {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: large;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.job-name {
+  font-weight: bold;
+}
+
+.job-status {
+  display: flex;
+  justify-content: space-between;
+}
+
+.job-detail {
+  font-weight: normal;
+  font-size: medium;
+}
+
+.job-instance {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 6;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal.is-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-container {
+  display: flex;
+}
+
+.modal-content {
+  background-color: lightblue;
+  padding: 20px;
+  border-radius: 5px;
+  width: 65%;
+  max-width: 500px;
+}
+
+.modal-title {
+  margin-top: 0;
+}
+
+.modal-btn {
+  margin-right: 10px;
+}
+
+.modal-content2 {
+  background-color: lightblue;
+  padding: 20px;
+  border-radius: 5px;
+  width: 45%;
+  max-width: 300px;
+}

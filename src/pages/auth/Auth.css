@@ -1,0 +1,14 @@
+.login-container {
+    margin: 7rem auto 0;
+    width: 1023px;
+}
+
+.register-container {
+    margin: 3rem auto 0;
+    width: 1023px;
+}
+
+.box {
+    width: 40rem;
+    margin: 0 auto;
+}

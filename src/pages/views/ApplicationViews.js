@@ -5,6 +5,7 @@ import NewJob from "../jobs/NewJob"
 import SubsList from "../subs/SubsList"
 import SubDetails from "../subs/[id]"
 import BidsList from "../bids/[id]"
+import EditJob from "../jobs/[id]"
 
 
 const ApplicationViews = () => {
@@ -13,6 +14,7 @@ const ApplicationViews = () => {
             <Routes>
                 <Route index element={<JobList />} />
                 <Route path="jobs/NewJob" element={<NewJob />} />
+                <Route path="jobs/:jobId" element={<EditJob />} />
                 <Route path="subs/SubsList" element={<SubsList />} />
                 <Route path="subs/:userId" element={<SubDetails />} />
                 <Route path="bids/:jobId" element={<BidsList />} />

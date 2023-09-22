@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { getASubContractor, getCurrentUser } from "../../managers/userManager"
 import { createBid, getAcceptedSubBids } from "../../managers/bidManager"
 import { getACompleteJob, getMyOpenJobs } from "../../managers/jobManager"
-import "./RequestModal.css"
+import "./SubDetails.css"
 import { QuickBidsProvider } from "../../context/QuickBidsContext"
 import { Navbar } from "../../components/nav/NavBar"
 
@@ -64,26 +64,45 @@ const SubDetails = (request, response) => {
         if (jobs.length !== 0) {
             return (
                 <>
-                    {jobs.map((job) => (
-                        <li key={job.id}>
-                            <p>{job.name}</p>
-                            <p>{job.address}</p>
-                            <p>SqFt: {job.square_footage}</p>
-                            <p>{job.blueprint}</p>
-                            <p>Needed:</p>
-                            <ul>{job.fields.map((field) => (
-                                <li key={field.id}>
-                                    <p>{field.job_title}</p>
+                    <div className="job-container">
+                        <h2 className="job-title">Completed Jobs</h2>
+                    </div>
+                    <div className="job-container">
+                        {jobs.map((job) => (
+                            <div className="job-container">
+                                <li className="job-item" key={`job--${job.id}`}>
+                                    <p className="job-title">{job.name}</p>
+                                    <dl className="job-instance">
+                                        <dt className="job-name">Address:</dt>
+                                        <dd className="job-detail">{job.address}</dd>
+                                    </dl>
+                                    <dl className="job-instance">
+                                        <dt className="job-name">Square Footage:</dt>
+                                        <dd className="job-detail">{job.square_footage}</dd>
+                                    </dl>
+                                    <dl className="job-instance">
+                                        <dt className="job-name">Needed:</dt>
+                                        <ul>{job.fields.map((field) => (
+                                            <li key={field.id}>
+                                                <dd className="job-detail">{field.job_title}</dd>
+                                            </li>
+                                        ))}</ul>
+                                    </dl>
+                                    <div className="bid-rate-container">
+                                        <p className="label">Rate Per Hour</p>
+                                        <h3 className="bid-rate">{findBidRate(job)}</h3>
+                                    </div>
+                                    <img src={job.blueprint} alt="Blueprint" />
                                 </li>
-                            ))}</ul>
-                            <p>Rate: {findBidRate(job)}</p>
-                            <p>-----------------------------------</p>
-                        </li>
-                    ))}
+                            </div>
+                        ))}
+                    </div>
                 </>
             )
         }
-        return <>No Completed Jobs</>
+        return <div className="job-container">
+            <div className="job-title">No Completed Jobs</div>
+        </div>
     }
 
     const handleRequest = async () => {
@@ -166,14 +185,20 @@ const SubDetails = (request, response) => {
             <QuickBidsProvider>
                 <Navbar />
             </QuickBidsProvider>
-            <h1>{sub.company_name}</h1>
-            <p>{sub.first_name}</p>
-            <p>{sub.last_name}</p>
-            <p>{sub.phone_number}</p>
-            <h2>Completed Jobs</h2>
-            <ul>{completedJobJSX()}</ul>
-            <button onClick={() => setModalVisible(true)}>Request</button>
-            <div>{bidRequestModalJSX()}</div>
+            <h1 className="title">{sub.company_name}</h1>
+            <div className="container">
+                <div className="contractor-container">
+                    <div className="contractor">
+                        <p className="label">{sub.full_name}</p>
+                        <p className="label">{sub.phone_number}</p>
+                    </div>
+                </div>
+                <ul>{completedJobJSX()}</ul>
+                <div className="button-container">
+                    <button className="button is-primary" onClick={() => setModalVisible(true)}>Request</button>
+                </div>
+                <div>{bidRequestModalJSX()}</div>
+            </div>
         </>
     )
 }
